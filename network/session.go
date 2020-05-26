@@ -4,8 +4,8 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
-	"github.com/baal19905/canines/interfaces"
-	"github.com/baal19905/canines/utils"
+	"github.com/Baal19905/canines/interfaces"
+	"github.com/Baal19905/canines/utils"
 	log "github.com/sirupsen/logrus"
 	"io"
 	"net"
@@ -142,7 +142,11 @@ func (s *Session) startWriter() {
 		case <-s.sendexit:
 			return;
 		case response := <-s.sendqueue:
-			sndBody := headObj.PreSend(response.Msg)
+			sndBody, err := headObj.PreSend(response.Msg)
+			if err != nil {
+				log.Error("PreSend failed, addr: ", s.GetRemoteAddr(), "sessionid: ", s.GetSessionID(), ", opcode: ", headObj.GetOpcode(), "err: ", err.Error())
+				continue
+			}
 			headObj.SetOpcode(response.Opcode)
 			headObj.SetBodyLen(uint32(len(sndBody)))
 			sndStart := 0
@@ -151,13 +155,13 @@ func (s *Session) startWriter() {
 			sndBytes = append(sndBytes, sndBody...)
 			for {
 				if s.trycount >= 3 {
-					//todo log
+					log.Warn("write failed 3 times, end session, addr: ", s.GetRemoteAddr(), "sessionid: ", s.GetSessionID())
 					return
 				}
 				s.conn.SetWriteDeadline(time.Now().Add(time.Duration(utils.ConfInfo.SendTimeOut) * time.Second))
 				n, err := s.conn.Write(sndBytes[sndStart:sndLen])
 				if err != nil {
-					//todo log
+					log.Error("Write failed, addr: ", s.GetRemoteAddr(), "sessionid: ", s.GetSessionID(), ", opcode: ", headObj.GetOpcode(), "err: ", err.Error())
 					s.trycount++
 					sndStart = n
 					continue

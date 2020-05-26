@@ -2,10 +2,10 @@ package network
 
 import (
 	log "github.com/sirupsen/logrus"
-	"github.com/baal19905/canines/handler"
-	"github.com/baal19905/canines/interfaces"
-	"github.com/baal19905/canines/logfile"
-	"github.com/baal19905/canines/utils"
+	"github.com/Baal19905/canines/handler"
+	"github.com/Baal19905/canines/interfaces"
+	"github.com/Baal19905/canines/logfile"
+	"github.com/Baal19905/canines/utils"
 	"net"
 )
 

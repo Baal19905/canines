@@ -2,8 +2,8 @@ package handler
 
 import (
 	"container/heap"
-	"github.com/baal19905/canines/interfaces"
-	"github.com/baal19905/canines/utils"
+	"github.com/Baal19905/canines/interfaces"
+	"github.com/Baal19905/canines/utils"
 	"sync"
 )
 

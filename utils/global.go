@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/baal19905/canines/interfaces"
+	"github.com/Baal19905/canines/interfaces"
 )
 
 var (

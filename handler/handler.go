@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"github.com/baal19905/canines/common"
-	"github.com/baal19905/canines/interfaces"
-	"github.com/baal19905/canines/utils"
+	"github.com/Baal19905/canines/common"
+	"github.com/Baal19905/canines/interfaces"
+	"github.com/Baal19905/canines/utils"
 )
 
 type JobHanelder struct {
